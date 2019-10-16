@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="row mt-4" *ngIf="model$ | async as model">
+        <div class="h2 d-inline">Листа књига</div>
+        <div class="d-inline float-right">&nbsp;<button (click)="refreshDataClickSubject.next()" class="btn btn-primary btn-sm">Oсвежи листу</button></div>
+        <div class="btn-group d-inline ml-2">
+            <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Опције
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" routerLink="/books">Све књиге</a>
+              <a class="dropdown-item" routerLink="/books" [queryParams]="{available: true}">Доступне</a>
+              <a class="dropdown-item" routerLink="/books" [queryParams]="{available: false}">Позајмљене</a>
+            </div>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Назив</th>
+                    <th>Аутор</th>
+                    <th>Издавач</th>
+                    <th class="text-center">Година изд.</th>
+                    <th class="text-center">Доступна</th>
+                    <th class="text-center">Ваша омиљена?</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngIf="model.isLoading">
+                    <td>Учитавање података...</td>
+                </tr>
+                <tr *ngFor="let book of model.books">
+                    <td>{{book.title}}</td>
+                    <td>{{book.author}}</td>
+                    <td>{{book.publisher}}</td>
+                    <td class="text-center">{{book.year}}</td>
+                    <td class="text-center">{{book.available == true ? 'да' : 'не'}}</td>
+                    <td class="text-center">{{book.favorite == true ? 'да' : 'не'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
