@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="row mt-4" *ngIf="model$ | async as model">
+        <div class="h2 d-inline">Листа аутора</div>
+        <div class="d-inline float-right">&nbsp;<button (click)="refreshDataClickSubject.next()" class="btn btn-primary btn-sm">Oсвежи листу</button></div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Ид</th>
+                    <th>Име Аутора</th>
+                    <th>Кратка Биографија</th>
+                    <th class="text-center">Бр. књига.</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngIf="model.isLoading">
+                    <td colspan="4">                        
+                        <div class="d-flex justify-content-center">
+                            <div class="spinner-border" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr *ngFor="let author of model.authors">
+                    <td>{{author.id}}</td>
+                    <td>{{author.name}}</td>
+                    <td>{{author.bio}}</td>
+                    <td class="text-center">{{author.numOfBooks}}</td> 
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+    
